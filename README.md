@@ -1,1 +1,2 @@
 # Proyecto_PensamientoComputacionalParaIngenieria
+Contexto
