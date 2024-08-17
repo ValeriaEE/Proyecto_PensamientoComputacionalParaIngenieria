@@ -5,6 +5,9 @@ El proyecto se basa en un programa que facilite a los reposteros, panaderos y pa
 
 
 Recopilación de datos: Recetas, medidas, tiempos de cocción, pasos a seguir, etc
+
 Indicar que es lo que quieres hacer: elegir que receta, cuantas cantidades y el tamaño de estas. 
+
 Resultados: te da toda la información necesaria así como la receta ya con esas medidas. 
+
 Decoración o emplatado: dar opciones de como presentar el producto final. 
