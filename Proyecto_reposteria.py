@@ -14,6 +14,9 @@ CUCHARADITA = int(1)
 CUCHARADITA_GRAM = float(5)
 TAZA_NUECES = float(100)
 TAZA_AGUA = float(250)
+TAZA_ACEITE_ML = float (200)
+TAZA_LECHE_CONDENSADA = float (300)
+TAZA_LECHE_ML = float (250)
 
     
 """Hice un menu para que eligieran lo que querian cocinar y dento de cada opcion del menu 
@@ -127,8 +130,41 @@ if opciones_cocina == "B" or opciones_cocina == "b":
     
 #Espacio de Pasteleria
 if opciones_cocina == "C" or opciones_cocina == "c": 
-    print("pasteleria")
+    print("Este es el menu de pasteleria\nEscribe el numero de la receta \n")
+    recetas_reposteria = input("1. Pastel de tres leches :  ")
+    if recetas_reposteria == "1":
+        print("Receta de Pastel de 3 Leches")
+        cantidad_pasteles_3L = float( input("¿Cuantos pasteles quieres hacer? \n"))
+        print("Estos son los ingredientes en gramos para ", cantidad_pasteles_3L, \
+        "pasteles")
+        
+        def medidas_pastel_3L (cantidad_pasteles_3L): 
+            harina_3_leches = (TAZA_HARINA_G * 1.5) * cantidad_pasteles_3L
+            aceite_3_leches = (TAZA_ACEITE_ML * .75) * cantidad_pasteles_3L
+            levadura_3_leches = CUCHARADITA  * cantidad_pasteles_3L
+            vainilla_3_leches = CUCHARADITA * cantidad_pasteles_3L
+            azucar_3_leches = ( TAZA_AZUCAR_G /2) * cantidad_pasteles_3L
+            huevo_3_leches = (HUEVO *5) * cantidad_pasteles_3L
+            leche_3_leches = (TAZA_LECHE_ML * 2.5) * cantidad_pasteles_3L
+            condensada_3_leches = TAZA_LECHE_CONDENSADA * cantidad_pasteles_3L
+            
+            
+            
+            return harina_3_leches, aceite_3_leches, levadura_3_leches, vainilla_3_leches,\
+            azucar_3_leches, huevo_3_leches, leche_3_leches, condensada_3_leches
+            
+    harina, aceite, levadura, vainilla, azucar, huevo, leche, condensada =\
+    medidas_pastel_3L(cantidad_pasteles_3L)
     
+    print (harina, "gramos de harina")
+    print (aceite, "ml de aceite")
+    print (levadura, "cucharaditas de levadura") 
+    print (vainilla, "cucharaditas de vainilla")
+    print (azucar, "gramos de azucar ")
+    print (huevo, "huevos")
+    print (leche, "ml de leche")
+    print (condensada, "gramos de leche condensada")
+  
 
     
  
