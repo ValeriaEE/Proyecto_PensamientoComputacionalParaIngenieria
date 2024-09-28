@@ -3,6 +3,8 @@
 
 #Medidas en gramos 
 
+#0123456789012345678901234567890123456789012345678901234567890123456789
+
 """Determine las cantidades en gramos de cada ingrediente"""
 
 TAZA_HARINA_G = float(150)
@@ -37,68 +39,45 @@ el numero de unidades dadas por el usuario """
             cantidad_galletas = float( input("¿Cuantas galletas quieres hacer? \n"))
             print("Estos son los ingredientes en gramos para ", cantidad_galletas, "galletas")
         
-            """Creamos una funcion para los calculos necesarios"""
+            """Creamos una lista para los calculos necesarios y despues """
+            ingredientes_galletas = ["Harina", "Chispas de chocolate", "Mantequilla", "Azúcar", "Nueces"]
+            cantidades_base_galletas = [300, 400, 460, 300, 100]  # En gramos para cada ingrediente
+            ingredientes_enteros_galletas = ["Vainilla", "Huevos", "Bicarbonato", "Sal"]
+            cantidades_enteros_galletas = [1, 2, 1, 0.5]  # Cucharaditas, huevos, etc.
         
             def medida_gramos_galletas(cantidad_galletas):
-                harina_galletas = ((TAZA_HARINA_G*2) / 60) * cantidad_galletas
-                chispas_galletas = ((TAZA_CHISPAS_G*2) / 60) * cantidad_galletas
-                mantequilla_galletas = ((BARRA_MANTEQUILLA_G*2) / 60) * cantidad_galletas
-                azucar_galletas = ((TAZA_AZUCAR_G*1.5) / 60) * cantidad_galletas
-                nueces_galletas = (TAZA_NUECES /60) * cantidad_galletas
+                proporciones = [cantidad_galletas / 60 for _ in range(len(ingredientes_galletas))]
+                cantidades_totales_galletas = [cantidades_base_galletas[i] * proporciones[i] for i in range(len(ingredientes_galletas))]
+                return cantidades_totales_galletas
             
             
-                return harina_galletas, chispas_galletas, mantequilla_galletas, azucar_galletas, \
-            nueces_galletas
             
             def medida_enteros_galletas(cantidad_galletas):
-                if cantidad_galletas >= 60: 
-                    num_enteros_galletas = cantidad_galletas // 60
-               
-                    vainilla_galletas = CUCHARADITA * num_enteros_galletas
-                    huevos_galletas = (HUEVO * 2) * num_enteros_galletas
-                    bicarbonato_galletas = CUCHARADITA * num_enteros_galletas
-                    sal_galletas= (CUCHARADITA/2) * num_enteros_galletas
-            
-                elif cantidad_galletas <= 60 and cantidad_galletas >= 30: 
-                
-                    num_enteros_galletas = 1
-               
-                    vainilla_galletas = CUCHARADITA * num_enteros_galletas
-                    huevos_galletas = (HUEVO * 2) * num_enteros_galletas
-                    bicarbonato_galletas = CUCHARADITA * num_enteros_galletas
-                    sal_galletas= (CUCHARADITA/2) * num_enteros_galletas
-                
-                else: 
-                    num_enteros_galletas = 1/2
-               
-                    vainilla_galletas = CUCHARADITA * num_enteros_galletas
-                    huevos_galletas = (HUEVO * 2) * num_enteros_galletas
-                    bicarbonato_galletas = CUCHARADITA * num_enteros_galletas
-                    sal_galletas= (CUCHARADITA/2) * num_enteros_galletas
-                
-                return vainilla_galletas, huevos_galletas, bicarbonato_galletas, \
-                sal_galletas
+                if cantidad_galletas >= 60:
+                    factor = cantidad_galletas // 60
+                elif cantidad_galletas >= 30:
+                    factor = 1
+                else:
+                    factor = 0.5
+                cantidades_totales_enteros = [cantidades_enteros_galletas[i] * factor for i in range(len(ingredientes_enteros_galletas))]
+                return cantidades_totales_enteros
             
             
             
             """Llammos a la funcion y se guardan en las variables los datos"""
-        
-            harina, chispas, mantequilla, azucar, nueces\
-            = medida_gramos_galletas(cantidad_galletas)
-        
-            vainilla, huevos, bicarbonato, sal = medida_enteros_galletas(cantidad_galletas)
+            
+            cantidades_galletas = medida_gramos_galletas(cantidad_galletas)
+            cantidades_enteros = medida_enteros_galletas(cantidad_galletas)
 
-            print (harina, "gramos de harina")
-            print (chispas, "gramos de chispas de chocolate")
-            print (mantequilla, "gramos de mantequilla suavizada")
-            print (azucar, "gramos de azucar ") 
-            print (nueces, "gramos de nueces") 
-            print (vainilla, "cucharaditas de vainilla")
-            print (huevos, "huevos")
-            print (bicarbonato, "cucharaditas de bicarbonato de sodio")
-            print (sal, "cucharaditas de sal ")
-            opcion = input ("si quieres hacer otra receta teclea 1 para salir teclea 2: ")
-            if opcion == "2":
+            # Mostrar resultados
+            print(f"Estos son los ingredientes en gramos para {cantidad_galletas} galletas:")
+            for i in range(len(ingredientes_galletas)):
+                print(cantidades_galletas[i], "gramos de", ingredientes_galletas[i])
+            for i in range(len(ingredientes_enteros_galletas)):
+                print(cantidades_enteros[i],"cucharaditas de ", ingredientes_enteros_galletas[i])
+            
+            opcion = input ("si quieres hacer otra receta teclea cualquier tecla, para salir teclea s:  ")
+            if opcion == "s":
                 break
         
     
