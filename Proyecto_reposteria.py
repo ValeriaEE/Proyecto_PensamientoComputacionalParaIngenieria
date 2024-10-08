@@ -36,22 +36,41 @@ while True:
 dados en la receta y luego se divide por las 60 unidades para luego multiplicarlo por
 el numero de unidades dadas por el usuario """
             print("Receta de galletas de chispas de chocolates")
-            cantidad_galletas = float( input("¿Cuantas galletas quieres hacer? \n"))
-            print("Estos son los ingredientes en gramos para ", cantidad_galletas, "galletas")
-        
-            """Creamos una lista para los calculos necesarios y despues """
-            ingredientes_galletas = ["Harina", "Chispas de chocolate", "Mantequilla", "Azúcar", "Nueces"]
-            cantidades_base_galletas = [300, 400, 460, 300, 100]  # En gramos para cada ingrediente
-            ingredientes_enteros_galletas = ["Vainilla", "Huevos", "Bicarbonato", "Sal"]
-            cantidades_enteros_galletas = [1, 2, 1, 0.5]  # Cucharaditas, huevos, etc.
-        
+            # Lista anidada para almacenar ingredientes y sus cantidades base
+            ingredientes_galletas = [
+                ["Harina", 300],  # En gramos
+                ["Chispas de chocolate", 400],
+                ["Mantequilla", 460],
+                ["Azúcar", 300],
+                ["Nueces", 100]
+                ]
+
+            ingredientes_enteros_galletas = [
+                ["Vainilla", 1],  # En cucharaditas
+                ["Huevos", 2],  # En unidades
+                ["Bicarbonato", 1],  # Cucharaditas
+                ["Sal", 0.5]  # Cucharaditas
+                ]
+
+            # Función para calcular las cantidades en gramos
             def medida_gramos_galletas(cantidad_galletas):
-                proporciones = [cantidad_galletas / 60 for _ in range(len(ingredientes_galletas))]
-                cantidades_totales_galletas = [cantidades_base_galletas[i] * proporciones[i] for i in range(len(ingredientes_galletas))]
+                proporciones = cantidad_galletas / 60  # Calcula la proporción en base a 60 galletas
+                cantidades_totales_galletas = []  # Lista vacía para guardar las cantidades finales
+
+                # Recorrer la lista de ingredientes
+                for ingrediente in ingredientes_galletas:
+                    nombre = ingrediente[0]  # El nombre del ingrediente (ej. "Harina")
+                    cantidad_base = ingrediente[1]  # La cantidad base del ingrediente (ej. 300 gramos)
+
+                    # Calcular la cantidad ajustada
+                    cantidad_ajustada = cantidad_base * proporciones
+
+                    # Añadir el ingrediente y la cantidad ajustada a la lista final
+                    cantidades_totales_galletas.append([nombre, cantidad_ajustada])
+
                 return cantidades_totales_galletas
-            
-            
-            
+
+            # Función para calcular los ingredientes enteros
             def medida_enteros_galletas(cantidad_galletas):
                 if cantidad_galletas >= 60:
                     factor = cantidad_galletas // 60
@@ -59,25 +78,25 @@ el numero de unidades dadas por el usuario """
                     factor = 1
                 else:
                     factor = 0.5
-                cantidades_totales_enteros = [cantidades_enteros_galletas[i] * factor for i in range(len(ingredientes_enteros_galletas))]
+                cantidades_totales_enteros = [
+                    [ingrediente[0], ingrediente[1] * factor] for ingrediente in ingredientes_enteros_galletas
+                    ]
                 return cantidades_totales_enteros
-            
-            
-            
-            """Llammos a la funcion y se guardan en las variables los datos"""
-            
+
+            # Recibe la cantidad de galletas que el usuario quiere hacer
+            cantidad_galletas = float(input("¿Cuántas galletas quieres hacer? \n"))
+
+            # Calcula las cantidades necesarias
             cantidades_galletas = medida_gramos_galletas(cantidad_galletas)
             cantidades_enteros = medida_enteros_galletas(cantidad_galletas)
 
             # Mostrar resultados
             print(f"Estos son los ingredientes en gramos para {cantidad_galletas} galletas:")
-            for i in range(len(ingredientes_galletas)):
-                print(cantidades_galletas[i], "gramos de", ingredientes_galletas[i])
-            for i in range(len(ingredientes_enteros_galletas)):
-                print(cantidades_enteros[i],"cucharaditas de ", ingredientes_enteros_galletas[i])
-            
-            opcion = input ("si quieres hacer otra receta teclea cualquier tecla, para salir teclea s:  ")
-            if opcion == "s":
+            for ingrediente in cantidades_galletas:
+                print(f"{ingrediente[1]:.2f} gramos de {ingrediente[0]}")
+            for ingrediente in cantidades_enteros:
+                print(f"{ingrediente[1]:.2f} cucharaditas de {ingrediente[0]}")
+
                 break
         
     
