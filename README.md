@@ -11,3 +11,6 @@ Indicar que es lo que quieres hacer: elegir que receta, cuantas cantidades y el 
 Resultados: te da toda la información necesaria así como la receta ya con esas medidas. 
 
 Decoración o emplatado: dar opciones de como presentar el producto final. 
+
+La nueva funcion que yo utilize en mi codigo fue la de random.choice
+Para mas informacion de random: REFERENCIA https://docs.python.org/es/3/library/random.html#random.choice
