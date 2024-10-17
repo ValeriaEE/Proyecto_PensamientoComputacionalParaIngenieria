@@ -1,185 +1,271 @@
-# Este codigo es el proyecto de la clase de programación 
-# Reposteria Automatizada :P
+# Proyecto Pensamiento computacional para ingenieria
+# Valeria Escalante A01709023
 
-#Medidas en gramos 
+import random
+# Importamos random para que la computadora elija un dato aleatorio 
 
-#0123456789012345678901234567890123456789012345678901234567890123456789
-
-"""Determine las cantidades en gramos de cada ingrediente"""
-
-TAZA_HARINA_G = float(150)
-TAZA_CHISPAS_G = float(200)
-BARRA_MANTEQUILLA_G = float(230)
-TAZA_AZUCAR_G = float(200)
-HUEVO = int(1)
-CUCHARADITA = int(1)
-CUCHARADITA_GRAM = float(5)
-TAZA_NUECES = float(100)
-TAZA_AGUA = float(250)
-TAZA_ACEITE_ML = float (200)
-TAZA_LECHE_CONDENSADA = float (300)
-TAZA_LECHE_ML = float (250)
-
+""" Funcion para dar tips randoms despues de cada receta"""
+def dar_tips():
+    tips = [
+        "Tip: Usa los igredientes a temp ambiente para mezclarlo mejor",
+        "Tip: La azucar morena da mejor consistencia a algunas recetas",
+        "Tip: Recuerda precalentar tu horn antes de hornear ",
+        "¿Sabias que? La levadura se usa desde tiempos inmemoriables",
+        "OJO primero junta tus solidas y luego incluye los humedos"
+        ]
+    # Crear una lista con tips 
+    return random.choice(tips)
+    # Pedirle a la computadora que elija una opcion random 
     
-"""Hice un menu para que eligieran lo que querian cocinar y dento de cada opcion del menu 
-hay recetas que pueen elegir"""
-#Menu 
-while True: 
-    print("Bienvenido/a \nEscribe la opcion que estas buscando")
-    opciones_cocina = input (" A. Reposteria B. Panaderia C. Pasteleria \n")
-#Espacio de reposteria
-    if opciones_cocina == "A" or opciones_cocina == "a": 
-        print("Este es el menu de reposteria\nEscribe el numero de la receta \n")
-        recetas_reposteria = input("1. Galletas de chispas")
-        if recetas_reposteria == "1":
-            """Con una receta de 60 galletas cada ingrediente se multiplica por los parametros
-dados en la receta y luego se divide por las 60 unidades para luego multiplicarlo por
-el numero de unidades dadas por el usuario """
-            print("Receta de galletas de chispas de chocolates")
-            # Lista anidada para almacenar ingredientes y sus cantidades base
-            ingredientes_galletas = [
-                ["Harina", 300],  # En gramos
-                ["Chispas de chocolate", 400],
-                ["Mantequilla", 460],
-                ["Azúcar", 300],
-                ["Nueces", 100]
+
+
+"""Funcion para calcular los gramos necesarios para cada receta"""
+def calculo_ingredientes(unidades,ingredientes,unidades_receta_orginal):
+    # Pide las unidades dependiendo de la cantidad del usuario
+    # la lista de ingredientes
+    # y las unidades que estan preestablecidas en la receta original
+    
+    resultado_calculos=[]
+    # Crea una lista vacia donde pondremos los resultados de los calculos 
+    
+    for ingrediente in ingredientes: 
+        # Se crea un ciclo for para repasar cada ingrediente en a lista
+        
+        nombre = ingrediente[0]
+        cantidad_original = ingrediente[1]
+        sistema_de_medicion = ingrediente[2]
+        # Se le asigna una variable a los elementos de la lista en la lista
+        
+        cantidad_calculada = (cantidad_original/unidades_receta_orginal) \
+        * unidades
+        # dividir las cantidades originales entre las unidades por las que la
+        # receta estaba hecha y luego multiplicar por el num de unidades que 
+        # el usuario pida
+        
+        if cantidad_calculada < 1:
+            cantidad_calculada = 1
+            # Si la cantidad calculada es menor a uno redondearlo a 1 para 
+            # evitar dimensiones demasiado pequeñas para cocinar 
+         
+        if cantidad_calculada > 1:
+            sistema_de_medicion = sistema_de_medicion + "s"
+            # Si la cantidad calculada es mas de uno volverlo plural 
+            
+        resultado_calculos.append([nombre,cantidad_calculada,\
+        sistema_de_medicion])
+        # Agregar todos los datos y calculos a la lista de resultados 
+        
+    return resultado_calculos
+       
+
+# Menu principal para elegir el tipo de cocina. Se repite infinitamente hasta
+# que el usuario quiera salir"""
+print("Bienvenide :)")
+while True:
+    
+    print("Escribe la opcion que estas buscando")
+    print("A Reposteria")
+    print("B Panaderia")
+    print("S Salir")
+    opcion_menu_principal = input("Opcion: ")
+    # Mostrar las opciones del menu y pedir una letra para la seleccion
+    
+    
+    if opcion_menu_principal == "A" or opcion_menu_principal == "a":
+        # Si la opcion es A entra al menu del espacio de reposteria 
+        
+        print("Este es el menu de reposteria")
+        print("Escribe el numero de la receta que quieras cocinar")
+        print("1 Galletas con chispas de chocolate")
+        print("2 Galletas de mantequilla")
+        opcion_menu_reposteria = input("Numero: ")
+        # Mostrar las opciones del menu y pedir un numero para la seleccion
+        
+        if opcion_menu_reposteria == "1": 
+            # Si la opcion es uno entra a la receta de galletas con chispas 
+            
+            unidades = int(input\
+            ("¿Cuantas galletas de chispas de chocolate quieres hacer?\n"))
+            # Determinar cuantas galletas se van a hacer para el calculo 
+            
+            ingredientes = [
+                ["Harina", 300, "gramo"],  
+                ["Chispas de chocolate", 400, "gramo"],
+                ["Mantequilla", 460, "gramo"],
+                ["Azúcar", 300, "gramo"],
+                ["Nueces", 100, "gramo"],
+                ["Vainilla", 1, "cucharadita"],  
+                ["Huevos", 2, "huevo" ],  
+                ["Bicarbonato", 1,"cucharadita"],  
+                ["Sal", 1, "cucharadita"] 
                 ]
-
-            ingredientes_enteros_galletas = [
-                ["Vainilla", 1],  # En cucharaditas
-                ["Huevos", 2],  # En unidades
-                ["Bicarbonato", 1],  # Cucharaditas
-                ["Sal", 0.5]  # Cucharaditas
-                ]
-
-            # Función para calcular las cantidades en gramos
-            def medida_gramos_galletas(cantidad_galletas):
-                proporciones = cantidad_galletas / 60  # Calcula la proporción en base a 60 galletas
-                cantidades_totales_galletas = []  # Lista vacía para guardar las cantidades finales
-
-                # Recorrer la lista de ingredientes
-                for ingrediente in ingredientes_galletas:
-                    nombre = ingrediente[0]  # El nombre del ingrediente (ej. "Harina")
-                    cantidad_base = ingrediente[1]  # La cantidad base del ingrediente (ej. 300 gramos)
-
-                    # Calcular la cantidad ajustada
-                    cantidad_ajustada = cantidad_base * proporciones
-
-                    # Añadir el ingrediente y la cantidad ajustada a la lista final
-                    cantidades_totales_galletas.append([nombre, cantidad_ajustada])
-
-                return cantidades_totales_galletas
-
-            # Función para calcular los ingredientes enteros
-            def medida_enteros_galletas(cantidad_galletas):
-                if cantidad_galletas >= 60:
-                    factor = cantidad_galletas // 60
-                elif cantidad_galletas >= 30:
-                    factor = 1
-                else:
-                    factor = 0.5
-                cantidades_totales_enteros = [
-                    [ingrediente[0], ingrediente[1] * factor] for ingrediente in ingredientes_enteros_galletas
-                    ]
-                return cantidades_totales_enteros
-
-            # Recibe la cantidad de galletas que el usuario quiere hacer
-            cantidad_galletas = float(input("¿Cuántas galletas quieres hacer? \n"))
-
-            # Calcula las cantidades necesarias
-            cantidades_galletas = medida_gramos_galletas(cantidad_galletas)
-            cantidades_enteros = medida_enteros_galletas(cantidad_galletas)
-
-            # Mostrar resultados
-            print(f"Estos son los ingredientes en gramos para {cantidad_galletas} galletas:")
-            for ingrediente in cantidades_galletas:
-                print(f"{ingrediente[1]:.2f} gramos de {ingrediente[0]}")
-            for ingrediente in cantidades_enteros:
-                print(f"{ingrediente[1]:.2f} cucharaditas de {ingrediente[0]}")
-
-                break
-        
-    
-#Espacio de panaderia
-    if opciones_cocina == "B" or opciones_cocina == "b": 
-        print("Este es el menu de panaderia\nEscribe el numero de la receta \n")
-        recetas_reposteria = input("1. Croissant: ")
-        if recetas_reposteria == "1":
-            print("Receta de croissant")
-            cantidad_croissants = float( input("¿Cuantos croissants quieres hacer? \n"))
-            print("Estos son los ingredientes en gramos para ", cantidad_croissants, "croissants")
-        
-            def medidas_croissants (cantidad_croissants): 
-                harina_croissant = ((TAZA_HARINA_G * 7) / 30) * cantidad_croissants 
-                sal_croissant = ((CUCHARADITA_GRAM * 4) / 30) * cantidad_croissants
-                levadura_creoissant = ((CUCHARADITA_GRAM * 5) / 30) * cantidad_croissants
-                agua_croissant = ((TAZA_AGUA * 2) / 30) * cantidad_croissants
-                azucar_croissant = (( TAZA_AZUCAR_G /2) / 30) * cantidad_croissants
-                mantequilla_croissant = (( BARRA_MANTEQUILLA_G /2) / 30) * cantidad_croissants
-            
-                return harina_croissant, sal_croissant, levadura_creoissant, agua_croissant, \
-            azucar_croissant, mantequilla_croissant
-            
-        harina, sal, levadura, agua, azucar, mantequilla =\
-        medidas_croissants(cantidad_croissants)
-    
-        print (harina, "gramos de harina")
-        print (sal, "gramos de sal")
-        print (levadura, "gramos de levadura") 
-        print (agua, "mililitros de agua")
-        print (azucar, "gramos de azucar ")
-        print (mantequilla, "gramos de mantequilla suavizada")
-        opcion = input ("si quieres hacer otra receta teclea 1 para salir teclea 2: ")
-        if opcion == "2":
-            break
-    
-#Espacio de Pasteleria
-    if opciones_cocina == "C" or opciones_cocina == "c": 
-        print("Este es el menu de pasteleria\nEscribe el numero de la receta \n")
-        recetas_reposteria = input("1. Pastel de tres leches :  ")
-        if recetas_reposteria == "1":
-            print("Receta de Pastel de 3 Leches")
-            cantidad_pasteles_3L = float( input("¿Cuantos pasteles quieres hacer? \n"))
-            print("Estos son los ingredientes en gramos para ", cantidad_pasteles_3L, \
-        "pasteles")
-        
-            def medidas_pastel_3L (cantidad_pasteles_3L): 
-                harina_3_leches = (TAZA_HARINA_G * 1.5) * cantidad_pasteles_3L
-                aceite_3_leches = (TAZA_ACEITE_ML * .75) * cantidad_pasteles_3L
-                levadura_3_leches = CUCHARADITA  * cantidad_pasteles_3L
-                vainilla_3_leches = CUCHARADITA * cantidad_pasteles_3L
-                azucar_3_leches = ( TAZA_AZUCAR_G /2) * cantidad_pasteles_3L
-                huevo_3_leches = (HUEVO *5) * cantidad_pasteles_3L
-                leche_3_leches = (TAZA_LECHE_ML * 2.5) * cantidad_pasteles_3L
-                condensada_3_leches = TAZA_LECHE_CONDENSADA * cantidad_pasteles_3L
-            
-            
-            
-                return harina_3_leches, aceite_3_leches, levadura_3_leches, vainilla_3_leches,\
-                azucar_3_leches, huevo_3_leches, leche_3_leches, condensada_3_leches
-            
-        harina, aceite, levadura, vainilla, azucar, huevo, leche, condensada =\
-        medidas_pastel_3L(cantidad_pasteles_3L)
-    
-        print (harina, "gramos de harina")
-        print (aceite, "ml de aceite")
-        print (levadura, "cucharaditas de levadura") 
-        print (vainilla, "cucharaditas de vainilla")
-        print (azucar, "gramos de azucar ")
-        print (huevo, "huevos")
-        print (leche, "ml de leche")
-        print (condensada, "gramos de leche condensada")
-        opcion = input ("si quieres hacer otra receta teclea 1 para salir teclea 2: ")
-        if opcion == "2":
-            break
+            # Crear una lista con el nombre del ingrediente, la cantidad en la
+            # receta y la forma en la que se mide 
                 
-  
+            unidades_receta_orginal = 60 
+            #Determinar para cuantas galletas eran en la receta original 
+            
+            for ingrediente in calculo_ingredientes(unidades,ingredientes,\
+            unidades_receta_orginal):
+                nombre = ingrediente[0]
+                cantidad = ingrediente[1]
+                sistema_de_medicion = ingrediente[2]
+                
+                print(nombre, ":",f"{cantidad:.0f}",sistema_de_medicion)
+            # For para imprimir los resultados de manera mas ordenada 
+            # Redondear el resultado para evitar mediciones demasiado pequeñas
+            
+            print(dar_tips())
+            # Imprimir la funcion para poner un tip random 
+            
+            break 
+            # Se cierra el ciclo while y con eso se termina el codigo 
+           
+             
+            
+            
+            
+        elif opcion_menu_reposteria == "2": 
+         # Si la opcion es dos entra a la receta de galletas de matequilla    
+        
+            
+            unidades = int(input\
+            ("¿Cuantas galletas de matequilla quieres hacer?\n"))
+            # Determinar cuantas galletas se van a hacer para el calculo 
+            
+            ingredientes = [
+                ["Harina", 350, "gramo"],  
+                ["Mantequilla", 100, "gramo"],
+                ["Azúcar", 200, "gramo"],
+                ["Vainilla", 1, "cucharadita"],  
+                ["Huevos", 2, "huevo" ],  
+                ["Bicarbonato", 1,"cucharadita"],  
+                ]
+            # Crear una lista con el nombre del ingrediente, la cantidad en la
+            # receta y la forma en la que se mide 
+                
+            unidades_receta_orginal = 12 
+            #Determinar para cuantas galletas eran en la receta original 
+            
+            for ingrediente in calculo_ingredientes(unidades,ingredientes,\
+            unidades_receta_orginal):
+                nombre = ingrediente[0]
+                cantidad = ingrediente[1]
+                sistema_de_medicion = ingrediente[2]
+                
+                print(nombre, ":",f"{cantidad:.0f}",sistema_de_medicion)
+            # For para imprimir los resultados de manera mas ordenada 
+            # Redondear el resultado para evitar mediciones demasiado pequeñas
+            
+            print(dar_tips())
+            # Imprimir la funcion para poner un tip random 
+            
+            break 
+            #Cierra el ciclo while y con eso termina el codigo 
+            
+        else: 
+            print("Opcion invalida")
+            # Si la respuesta por el usuario no es lo indicado se imprime
+            # opcion invalida y se repite el codigo 
+          
+    elif opcion_menu_principal == "B" or opcion_menu_principal == "b":
+        # Si la opcion es A entra al menu del espacio de panaderia 
+        
+        print("Este es el menu de panaderia")
+        print("Escribe el numero de la receta que quieras cocinar")
+        print("1 Croissants")
+        print("2 Pan de Muerto")
+        opcion_menu_reposteria = input("Numero: ")
+        # Mostrar las opciones del menu y pedir un numero para la seleccion
+        
+        if opcion_menu_reposteria == "1": 
+            # Si la opcion es uno entra a la receta de croissants 
+            
+            unidades = int(input("¿Cuantos croissants quieres hacer?\n"))
+            # Determinar cuantos croissants se van a hacer para el calculo 
+            
+            ingredientes = [
+                ["Harina", 1000, "gramo"],  
+                ["Mantequilla", 640, "gramo"],
+                ["Agua Fria", 520, "mililitro"],
+                ["Azucar", 100, "gramo"], 
+                ["Levadura", 22,"gramo"],  
+                ["Sal", 18, "gramo"] 
+                ]
+            # Crear una lista con el nombre del ingrediente, la cantidad en la
+            # receta y la forma en la que se mide 
+                
+            unidades_receta_orginal = 30 
+            #Determinar para cuantos croissants eran en la receta original 
+            
+            for ingrediente in calculo_ingredientes(unidades,ingredientes,\
+            unidades_receta_orginal):
+                nombre = ingrediente[0]
+                cantidad = ingrediente[1]
+                sistema_de_medicion = ingrediente[2]
+                
+                print(nombre, ":",f"{cantidad:.0f}",sistema_de_medicion)
+            # For para imprimir los resultados de manera mas ordenada
+            # Redondear el resultado para evitar mediciones demasiado pequeñas
+            
+            print(dar_tips())
+            # Imprimir la funcion para poner un tip random 
+            
+            break 
+            # Se cierra el ciclo while y con eso se termina el codigo 
+           
+            
+        elif opcion_menu_reposteria == "2": 
+         # Si la opcion es dos entra a la receta de pan de muerto     
+        
+            
+            unidades = int(input\
+            ("¿Cuantos panes de muerto quieres hacer?\n"))
+            # Determinar cuantos panes se van a hacer para el calculo 
+            
+            ingredientes = [
+                ["Harina", 250, "gramo"],  
+                ["Mantequilla", 105, "gramo"],
+                ["Azúcar", 250, "gramo"],
+                ["Vainilla", 1, "cucharadita"], 
+                ["Sal", 4, "gramo"],
+                ["Huevos", 3, "huevo" ],  
+                ["Jugo de naranja", 2,"cucharada"],
+                ["Agua de Azahar", 1, "cucharadita"]
+                ]
+            # Crear una lista con el nombre del ingrediente, la cantidad en la
+            # receta y la forma en la que se mide 
+                
+            unidades_receta_orginal = 6
+            #Determinar para cuantos panes eran en la receta original 
+            
+            for ingrediente in calculo_ingredientes(unidades,ingredientes,\
+            unidades_receta_orginal):
+                nombre = ingrediente[0]
+                cantidad = ingrediente[1]
+                sistema_de_medicion = ingrediente[2]
+                
+                print(nombre, ":",f"{cantidad:.0f}",sistema_de_medicion)
+            # For para imprimir los resultados de manera mas ordenada
 
+            print(dar_tips())
+            # Imprimir la funcion para poner un tip random 
+            
+            break 
+            #Cierra el ciclo while y con eso termina el codigo
+            
     
- 
-
-    
-    
-    
-
-    
+            
+        else: 
+            print("Opcion invalida")
+            # Si la respuesta por el usuario no es lo indicado se imprime
+            # opcion invalida y se repite el codigo             
+            
+    elif opcion_menu_principal == "S" or opcion_menu_principal == "s":
+        break
+        #Si se escribe s se termina el codigo cerrando el ciclo 
+        
+    else: 
+        print("Opcion invalida")
+        # Si la respuesta por el usuario no es lo indicado se imprime
+        # opcion invalida y se repite el codigo 
