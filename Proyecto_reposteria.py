@@ -16,6 +16,7 @@ def dar_tips():
     # Crear una lista con tips 
     return random.choice(tips)
     # Pedirle a la computadora que elija una opcion random 
+    # https://docs.python.org/es/3/library/random.html#random.choice
     
 
 
